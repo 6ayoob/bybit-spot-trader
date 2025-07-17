@@ -1,42 +1,36 @@
-# app.py
+import telebot
 import time
-import threading
-from config import SYMBOLS
-from strategies import should_buy
-from trade_executor import buy, manage_positions
-from telegram_bot import run_telegram_bot
-from pybit.unified_trading import HTTP
-from utils import log
+from bybit_client import place_order, get_balance, get_price
+from strategies import should_buy, should_sell
 
-session = HTTP()
+BOT_TOKEN = '7800699278:AAEdMakvUEwysq-s0k9MsK6k4b4ucyHRfT4'
+bot = telebot.TeleBot(BOT_TOKEN)
 
-def fetch_price(symbol):
-    tick = session.get_ticker(category="spot", symbol=symbol)
-    return float(tick["result"][0]["lastPrice"])
+ALLOWED_USERS = [7863509137]  # عدل هذا بمعرفك إن أردت
+SYMBOL = "BTCUSDT"
+TRADE_QTY = 10  # الكمية بالدولار
 
-def fetch_ma(symbol, period):
-    klines = session.get_kline(category="spot", symbol=symbol, interval="60", limit=period)
-    closes = [float(k[4]) for k in klines["result"]["list"]]
-    return sum(closes) / len(closes)
+@bot.message_handler(commands=['start'])
+def start(message):
+    if message.from_user.id in ALLOWED_USERS:
+        bot.reply_to(message, "🤖 تم تشغيل بوت التداول الآلي لـ Bybit.")
 
-def main_loop():
+@bot.message_handler(commands=['balance'])
+def balance(message):
+    if message.from_user.id in ALLOWED_USERS:
+        bal = get_balance()
+        bot.reply_to(message, f"💰 رصيدك: {bal} USDT")
+
+def auto_trade():
     while True:
-        prices = {}
-        for symbol in SYMBOLS:
-            try:
-                price = fetch_price(symbol)
-                ma50 = fetch_ma(symbol, 50)
-                ma200 = fetch_ma(symbol, 200)
-                prices[symbol] = price
+        price = get_price(SYMBOL)
+        if should_buy(price):
+            place_order(SYMBOL, "Buy", TRADE_QTY)
+        elif should_sell(price):
+            place_order(SYMBOL, "Sell", TRADE_QTY)
+        time.sleep(60)  # كل دقيقة
 
-                if should_buy(price, ma50, ma200):
-                    buy(symbol, price)
+import threading
+threading.Thread(target=auto_trade).start()
 
-            except Exception as e:
-                log(f"خطأ في {symbol}: {e}")
-        manage_positions(prices)
-        time.sleep(1800)  # كل 30 دقيقة
-
-# تشغيل التليجرام والبوت معًا
-threading.Thread(target=run_telegram_bot).start()
-main_loop()
+bot.infinity_polling()
