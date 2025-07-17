@@ -19,7 +19,7 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(msg)
 
 def run_telegram_bot():
-    app = ApplicationBuilder().token(7800699278:AAEdMakvUEwysq-s0k9MsK6k4b4ucyHRfT4).build()
+    app = ApplicationBuilder().token("7800699278:AAEdMakvUEwysq-s0k9MsK6k4b4ucyHRfT4").build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("status", status))
     app.run_polling()
