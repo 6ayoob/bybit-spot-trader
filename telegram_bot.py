@@ -23,3 +23,7 @@ def run_telegram_bot():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("status", status))
     app.run_polling()
+if __name__ == "__main__":
+    print("Starting bot...")
+    bot.infinity_polling()
+
