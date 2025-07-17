@@ -1,7 +1,7 @@
 # telegram_bot.py
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-from config import TELEGRAM_BOT_TOKEN, ALLOWED_TELEGRAM_IDS
+from config import TELEGRAM_TOKEN, ALLOWED_TELEGRAM_IDS
 from trade_executor import positions
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
