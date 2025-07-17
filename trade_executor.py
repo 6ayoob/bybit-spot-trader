@@ -1,6 +1,6 @@
 # trade_executor.py
 from pybit.unified_trading import HTTP
-from config import API_KEY, API_SECRET, TRADE_AMOUNT, TAKE_PROFIT_PERCENT, STOP_LOSS_PERCENT
+from config import API_KEY, API_SECRET, RISK_PER_TRADE, TAKE_PROFIT_PERCENT, STOP_LOSS_PERCENT
 from strategies import should_sell
 from utils import log
 
