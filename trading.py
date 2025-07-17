@@ -2,7 +2,7 @@ from pybit import HTTP
 from config import *
 import json
 
-session = HTTP("https://api.bybit.com", api_key=API_KEY, api_secret=API_SECRET)
+session = HTTP("https://api.bybit.com", api_key=YYYiM7DuvzINADCosx, api_secret=j3V4agrapGkqLSQsb75shiSWCTZe8a3TYnDdp)
 
 def get_balance():
     wallet = session.get_wallet_balance(coin="USDT")
