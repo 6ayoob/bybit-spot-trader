@@ -1,5 +1,5 @@
-API_KEY = "your_bybit_api_key"
-API_SECRET = "your_bybit_api_secret"
+API_KEY = "YYYiM7DuvzINADCosx"
+API_SECRET = "j3V4agrapGkqLSQsb75shiSWCTZe8a3TYnDdp"
 TELEGRAM_TOKEN = "7863509137:AAHBuRbtzMAOM_yBbVZASfx-oORubvQYxY8"
 ALLOWED_USER_ID = 658712542
 
