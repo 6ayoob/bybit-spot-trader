@@ -1,2 +1,2 @@
 pyTelegramBotAPI==4.14.0
-pybit==4.3.12
+pybit==5.11.0
