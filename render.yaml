@@ -1,7 +1,8 @@
 services:
   - type: web
-    name: bybit-auto-bot
-    runtime: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    name: bybit-spot-trader
+    env: python
     plan: free
+    buildCommand: ""
+    startCommand: "python fake_flask.py"
+    autoDeploy: true
