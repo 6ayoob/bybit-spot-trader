@@ -1,4 +1,10 @@
-from telegram_bot import app
+# fake_flask.py
+from flask import Flask
+app = Flask(__name__)
 
-if __name__ == "__main__":
-    app.run_polling()
+@app.route('/')
+def home():
+    return "Bybit Spot Trader is running."
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
